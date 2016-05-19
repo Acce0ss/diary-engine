@@ -3,9 +3,9 @@ include(../common.pri)
 SOURCES += \
    runner.cc
 
-LIBS += -L../src -llaskenta
+LIBS += -L../src -ldiary-engine
 
 HEADERS += \
     firsttestsuite.h
 
-system(cxxtestgen --error-printer -o runner.cc $$HEADERS)
+system(cxxtestgen --error-printer --root -o runner.cc $$HEADERS)

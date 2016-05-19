@@ -2,7 +2,7 @@
 
 include(../common.pri)
 
-TARGET = laskenta
+TARGET = diary-engine
 TEMPLATE = lib
 
 HEADERS += \
