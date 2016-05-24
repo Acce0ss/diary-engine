@@ -7,7 +7,13 @@ TEMPLATE = lib
 
 HEADERS += \
     myclass.h \
-    global_defines.h
+    global_defines.h \
+    entry.h \
+    manager.h \
+    book.h
 
 SOURCES += \
-    myclass.cc
+    myclass.cc \
+    entry.cc \
+    manager.cc \
+    book.cc

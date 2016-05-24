@@ -6,6 +6,7 @@ SOURCES += \
 LIBS += -L../src -ldiary-engine
 
 HEADERS += \
-    firsttestsuite.h
+    firsttestsuite.h \
+    entrytestsuite.h
 
 system(cxxtestgen --error-printer --root -o runner.cc $$HEADERS)
