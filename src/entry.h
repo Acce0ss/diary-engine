@@ -16,7 +16,7 @@ namespace diaryengine {
 
     private:
       struct Implementation;
-      std::unique_ptr<Implementation> inside_;
+      std::unique_ptr<Implementation> _inside;
   };
 
 }
