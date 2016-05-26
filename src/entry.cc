@@ -48,8 +48,6 @@ namespace diaryengine {
     memcpy(&temp, QUuid::createUuid().toRfc4122().left(8).data(), sizeof(unsigned long));
 
     this->_inside->_id = temp;
-
-    qDebug() << this->_inside->_id << sizeof(unsigned long);
   }
 
   void Entry::setTitle(std::__cxx11::string title)
