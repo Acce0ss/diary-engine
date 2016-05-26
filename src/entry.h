@@ -24,6 +24,8 @@ namespace diaryengine {
       void setDate(std::string ISOString);
       std::string date();
 
+      //Assumes all text is UTF-8 encoded. The std::string only works as
+      //convenient container and common way to pass the data.
       void setTextContent(std::string content);
       std::string textContent();
 
