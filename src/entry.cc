@@ -80,12 +80,12 @@ namespace diaryengine {
 
   void Entry::setTextContent(std::__cxx11::string content)
   {
-    this->_inside->textContent = content;
+    this->_inside->_textContent = content;
   }
 
   std::__cxx11::string Entry::textContent()
   {
-    return this->_inside->textContent;
+    return this->_inside->_textContent;
   }
 
   bool Entry::addKeyword(std::__cxx11::string keyword)

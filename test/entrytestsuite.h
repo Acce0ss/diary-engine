@@ -93,6 +93,13 @@ public:
       TS_ASSERT(failed);
     }
 
+    void testUTF8textContentIsUnmangledAfterSettingAndRetrieving()
+    {
+      QString testcontent = QString::fromUtf8("やる気");
+      testEntry->setTextContent(testcontent.toStdString());
+      TS_ASSERT(QString::fromUtf8(QByteArray::fromStdString(testEntry->textContent())) == "やる気");
+    }
+
     diaryengine::Entry* testEntry;
 };
 
