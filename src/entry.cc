@@ -17,6 +17,9 @@ namespace diaryengine {
       Implementation(unsigned long id=0, std::string title="", std::string date="0000-00-00T00:00:00Z")
         :
           _id(id), _title(title),
+          _textContent(""),
+          _multimedia(),
+          _date(),
           _keywords()
       {
         _date = QDateTime::fromString(QString::fromStdString(date), Qt::DateFormat::ISODate);
@@ -24,6 +27,11 @@ namespace diaryengine {
 
       unsigned long _id;
       std::string _title;
+
+      std::string _textContent;
+
+      QList<Entry::NameMediaPair> _multimedia;
+
       QDateTime _date;
       QList<std::string> _keywords;
 
@@ -67,7 +75,17 @@ namespace diaryengine {
 
   std::__cxx11::string Entry::date()
   {
-    return this->_inside->_date.toString(Qt::DateFormat::ISODate).toStdString();
+      return this->_inside->_date.toString(Qt::DateFormat::ISODate).toStdString();
+  }
+
+  void Entry::setTextContent(std::__cxx11::string content)
+  {
+    this->_inside->_textContent = content;
+  }
+
+  std::__cxx11::string Entry::textContent()
+  {
+    return this->_inside->_textContent;
   }
 
   bool Entry::addKeyword(std::__cxx11::string keyword)
