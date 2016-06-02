@@ -1,5 +1,7 @@
 include(../common.pri)
 
+TARGET = test
+
 SOURCES += \
    runner.cc
 
@@ -9,4 +11,11 @@ HEADERS += \
     firsttestsuite.h \
     entrytestsuite.h
 
-system(cxxtestgen --error-printer --root -o runner.cc $$HEADERS)
+testgen.target = $$PWD/runner.cc
+testgen.commands = cxxtestgen --error-printer --root -o runner.cc $$HEADERS
+
+QMAKE_EXTRA_TARGETS += testgen
+
+test.depends += testgen
+
+

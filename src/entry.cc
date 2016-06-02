@@ -7,6 +7,7 @@
 #include <QUuid>
 #include <QByteArray>
 #include <QList>
+#include <QMap>
 
 #include <QDebug>
 
@@ -30,7 +31,7 @@ namespace diaryengine {
 
       std::string _textContent;
 
-      QList<Entry::NameMediaPair> _multimedia;
+      QMap<std::string,std::string> _multimedia;
 
       QDateTime _date;
       QList<std::string> _keywords;
@@ -83,9 +84,32 @@ namespace diaryengine {
     this->_inside->_textContent = content;
   }
 
-  std::__cxx11::string Entry::textContent()
+  const std::string& Entry::textContent()
   {
     return this->_inside->_textContent;
+  }
+
+  bool Entry::addBase64EncodedMultimediaPart(std::__cxx11::string name, std::__cxx11::string media)
+  {
+    if(this->_inside->_multimedia.contains(name))
+    {
+      return false;
+    }
+    else
+    {
+      this->_inside->_multimedia.insert(name, media);
+      return true;
+    }
+  }
+
+  bool Entry::removeBase64EncodedMultimediaPart(std::__cxx11::string name)
+  {
+
+  }
+
+  const std::map<std::__cxx11::string, std::__cxx11::string>& Entry::base64EncodedMultimediaParts()
+  {
+    return this->_inside->_multimedia.toStdMap();
   }
 
   bool Entry::addKeyword(std::__cxx11::string keyword)
@@ -114,7 +138,7 @@ namespace diaryengine {
     }
   }
 
-  std::list<std::__cxx11::string> Entry::keywords()
+  const std::list<std::__cxx11::string>& Entry::keywords()
   {
     return this->_inside->_keywords.toStdList();
   }
