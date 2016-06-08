@@ -100,6 +100,21 @@ public:
       TS_ASSERT(QString::fromUtf8(QByteArray::fromStdString(testEntry->textContent())) == "やる気");
     }
 
+    void testMultimediaCanBeAdded()
+    {
+      testEntry->addBase64EncodedMultimediaPart("testFile", "it's multipart");
+      std::map<std::string, std::string> mults = testEntry->base64EncodedMultimediaParts();
+      TS_ASSERT(mults.at("testFile") == "it's multipart");
+    }
+
+    void testMultimediaCanBeRemoved()
+    {
+      testEntry->addBase64EncodedMultimediaPart("testFile", "it's multipart");
+      testEntry->removeBase64EncodedMultimediaPart("testFile");
+      std::map<std::string, std::string> mults = testEntry->base64EncodedMultimediaParts();
+      TS_ASSERT(mults.find("testFile") == mults.end());
+    }
+
     diaryengine::Entry* testEntry;
 };
 

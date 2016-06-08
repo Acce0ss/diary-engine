@@ -4,7 +4,7 @@
 #include <string>
 #include <memory>
 #include <list>
-#include <tuple>
+#include <map>
 
 namespace diaryengine {
   class Entry
@@ -12,8 +12,6 @@ namespace diaryengine {
     public:
       Entry();
       ~Entry();
-
-      typedef std::tuple<std::string, std::string> NameMediaPair;
 
       unsigned long id();
       void regenerateId();
@@ -27,15 +25,15 @@ namespace diaryengine {
       //Assumes all text is UTF-8 encoded. The std::string only works as
       //convenient container and common way to pass the data.
       void setTextContent(std::string content);
-      std::string textContent();
+      const std::string& textContent();
 
-      void addBase64EncodedMultimedia(std::string name, std::string media);
-      void removeBase64EncodedMultimedia(std::string name);
-      std::list<NameMediaPair> base64EncodedMultimedia();
+      bool addBase64EncodedMultimediaPart(std::string name, std::string media);
+      bool removeBase64EncodedMultimediaPart(std::string name);
+      const std::map<std::__cxx11::string, std::__cxx11::string>& base64EncodedMultimediaParts();
 
       bool addKeyword(std::string keyword);
       bool removeKeyword(std::string keyword);
-      std::list<std::__cxx11::string> keywords();
+      const std::list<std::__cxx11::string>& keywords();
 
     private:
       struct Implementation;
