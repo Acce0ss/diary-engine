@@ -2,20 +2,20 @@ include(../common.pri)
 
 TARGET = test
 
-SOURCES += \
-   runner.cc
-
 LIBS += -L../src -ldiary-engine
 
 HEADERS += \
-    firsttestsuite.h \
     entrytestsuite.h
 
-testgen.target = $$PWD/runner.cc
-testgen.commands = cxxtestgen --error-printer --root -o runner.cc $$HEADERS
 
-QMAKE_EXTRA_TARGETS += testgen
+TEST_HEADERS = $$find(HEADERS, .*testsuite.h)
 
-test.depends += testgen
+generate_tests.name = "Generate CxxTests"
+generate_tests.input = TEST_HEADERS
+generate_tests.output =  $$PWD/runner.cc
+generate_tests.commands = cxxtestgen --root --xunit-printer -o ${QMAKE_FILE_OUT} ${QMAKE_FILE_IN}
+generate_tests.CONFIG += no_link target_predeps combine
+generate_tests.clean += ${QMAKE_FILE_OUT}
+generate_tests.variable_out = GENERATED_SOURCES
 
-
+QMAKE_EXTRA_COMPILERS += generate_tests
