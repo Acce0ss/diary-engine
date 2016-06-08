@@ -102,17 +102,25 @@ namespace diaryengine {
     }
   }
 
-  bool Entry::removeBase64EncodedMultimediaPart(std::__cxx11::string name)
+  bool Entry::removeBase64EncodedMultimediaPart(std::string name)
   {
-
+    if(this->_inside->_multimedia.contains(name))
+    {
+      this->_inside->_multimedia.remove(name);
+      return true;
+    }
+    else
+    {
+      return false;
+    }
   }
 
-  const std::map<std::__cxx11::string, std::__cxx11::string>& Entry::base64EncodedMultimediaParts()
+  std::map<std::__cxx11::string, std::__cxx11::string> Entry::base64EncodedMultimediaParts()
   {
     return this->_inside->_multimedia.toStdMap();
   }
 
-  bool Entry::addKeyword(std::__cxx11::string keyword)
+  bool Entry::addKeyword(std::string keyword)
   {
     if(this->_inside->_keywords.contains(keyword))
     {
@@ -125,7 +133,7 @@ namespace diaryengine {
     }
   }
 
-  bool Entry::removeKeyword(std::__cxx11::string keyword)
+  bool Entry::removeKeyword(std::string keyword)
   {
     if(this->_inside->_keywords.contains(keyword))
     {
@@ -138,7 +146,7 @@ namespace diaryengine {
     }
   }
 
-  const std::list<std::__cxx11::string>& Entry::keywords()
+  std::list<std::__cxx11::string> Entry::keywords()
   {
     return this->_inside->_keywords.toStdList();
   }
