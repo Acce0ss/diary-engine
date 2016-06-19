@@ -10,13 +10,13 @@
 
 #include "../src/book.h"
 
-class EntryTestSuite : public CxxTest::TestSuite
+class BookTestSuite : public CxxTest::TestSuite
 {
 public:
 
     void setUp()
     {
-      testBook = new diaryengine::Book();
+      testBook = new diaryengine::Book("test");
     }
 
     void tearDown()
@@ -24,8 +24,15 @@ public:
       delete testBook;
     }
 
-    void testTitleCanBeSetCorrectly(void)
+    void testNameIsSetCorrectlyByConstructor(void)
     {
+      TS_ASSERT(testBook->name() == "test")
+    }
+
+    void testNameCanBeSetAndRetrievedCorrectly()
+    {
+      testBook->setName("testus");
+      TS_ASSERT(testBook->name() == "testus")
     }
 
     diaryengine::Book* testBook;
