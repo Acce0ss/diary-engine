@@ -29,11 +29,11 @@ namespace diaryengine {
 
       bool addBase64EncodedMultimediaPart(std::string name, std::string media);
       bool removeBase64EncodedMultimediaPart(std::string name);
-      const std::map<std::__cxx11::string, std::__cxx11::string>& base64EncodedMultimediaParts();
+      std::map<std::string, std::string> base64EncodedMultimediaParts();
 
       bool addKeyword(std::string keyword);
       bool removeKeyword(std::string keyword);
-      const std::list<std::__cxx11::string>& keywords();
+      std::list<std::string> keywords();
 
     private:
       struct Implementation;
