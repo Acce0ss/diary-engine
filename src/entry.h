@@ -11,13 +11,20 @@ namespace diaryengine {
   {
     public:
       Entry();
+      Entry(std::string author, std::string title,
+            std::string date, std::string textContent);
       ~Entry();
 
       unsigned long id();
       void regenerateId();
 
+      void setBelongsTo(std::string journalName);
+
       void setTitle(std::string title);
       std::string title();
+
+      void setAuthor(std::string author);
+      std::string author();
 
       void setDate(std::string ISOString);
       std::string date();
@@ -34,6 +41,9 @@ namespace diaryengine {
       bool addKeyword(std::string keyword);
       bool removeKeyword(std::string keyword);
       std::list<std::string> keywords();
+
+      bool writeToFile(std::string filePath);
+      bool asFileContentTo(std::ostream& target);
 
     private:
       struct Implementation;
