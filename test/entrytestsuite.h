@@ -115,6 +115,32 @@ public:
       TS_ASSERT(mults.find("testFile") == mults.end());
     }
 
+    void testFormatIsProper()
+    {
+      unsigned long testId = testEntry->id();
+      std::stringstream testFileContent;
+      testFileContent << "From: \"Author Name\" <author@domain.com>" << std::endl
+          <<"Date: 2000-10-10T10:00:00+02:00" << std::endl
+          <<"Message-ID: <" << testId << "@<journal name>" << std::endl
+          <<"Subject: <entry title>" << std::endl
+          <<"Content-Type: multipart/mixed; boundary=\"bound-" << testId << "\"" << std::endl << std::endl
+          <<"--bound-" << testId << std::endl
+          <<"Content-Type: text/plain; charset=\"UTF-8\"" << std::endl
+          <<"this is text, äöly!" << std::endl
+          <<"--bound-" << testId << "--" << std::endl;
+
+      testEntry->setAuthor("Author Name");
+      testEntry->setDate("2000-10-10T10:00:00+02:00");
+      testEntry->setTitle("<entry title>");
+      testEntry->setTextContent("this is text, äöly!");
+      testEntry->setBelongsTo("<journal name>");
+
+      std::stringstream target;
+      testEntry->asFileContentTo(target);
+
+      TS_ASSERT_SAME_DATA(target.str().c_str(), testFileContent.str().c_str(), testFileContent.str().length());
+    }
+
     diaryengine::Entry* testEntry;
 };
 
