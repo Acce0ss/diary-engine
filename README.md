@@ -31,6 +31,8 @@ From: "Author Name" <author@domain.com>
 Date: 2000-10-10T10:00:00+02:00
 Message-ID: <<uuid transformed into an integer>@<journal name>>
 Subject: <entry title>
+X-Engine-Version: x.x
+X-Entry-Keywords: again,me,test
 Content-Type: multipart/mixed; 
         boundary="proper boundary"
 

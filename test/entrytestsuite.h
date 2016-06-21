@@ -124,6 +124,7 @@ public:
           <<"Message-ID: <" << testId << "@<journal name>" << std::endl
           <<"Subject: <entry title>" << std::endl
           <<"X-Engine-Version: " << DIARYENGINE_VERSION << std::endl
+          <<"X-Entry-Keywords: again,me,test" << std::endl
           <<"Content-Type: multipart/mixed; boundary=\"bound-" << testId << "\"" << std::endl << std::endl
           <<"--bound-" << testId << std::endl
           <<"Content-Type: text/plain; charset=\"UTF-8\"" << std::endl
@@ -135,6 +136,10 @@ public:
       testEntry->setTitle("<entry title>");
       testEntry->setTextContent("this is text, äöly!");
       testEntry->setBelongsTo("<journal name>");
+
+      testEntry->addKeyword("test");
+      testEntry->addKeyword("me");
+      testEntry->addKeyword("again");
 
       std::stringstream target;
       testEntry->asFileContentTo(target);
@@ -154,6 +159,7 @@ public:
           <<"Message-ID: <" << testId << "@<journal name>" << std::endl
           <<"Subject: <entry title>" << std::endl
           <<"X-Engine-Version: " << DIARYENGINE_VERSION << std::endl
+          <<"X-Entry-Keywords: " << std::endl
           <<"Content-Type: multipart/mixed; boundary=\"bound-" << testId << "\"" << std::endl << std::endl
           <<"--bound-" << testId << std::endl
           <<"Content-Type: text/plain; charset=\"UTF-8\"" << std::endl

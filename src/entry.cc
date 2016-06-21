@@ -16,7 +16,8 @@
 
 namespace diaryengine {
 
-  struct Entry::Implementation {
+  class Entry::Implementation {
+    public:
 
       Implementation(unsigned long id=0, std::string title="",
                      std::string date="0000-00-00T00:00:00Z",
@@ -60,6 +61,22 @@ namespace diaryengine {
         return ss.str();
       }
 
+      std::string joinedKeywords()
+      {
+        std::stringstream ss;
+        auto keywords =  this->_keywords.toStdList();
+        keywords.sort();
+
+        if( ! keywords.empty() )
+        {
+          for(auto it = keywords.begin(); it != keywords.end(); ++it)
+          {
+            ss << (*it) << (it != --keywords.end() ? "," : "");
+          }
+        }
+
+        return ss.str();
+      }
   };
 
   Entry::Entry() : _inside(new Implementation())
@@ -216,6 +233,7 @@ namespace diaryengine {
     target << "Message-ID: <" << this->id() << "@" << this->_inside->_belongsTo << std::endl;
     target << "Subject: " << this->title() << std::endl;
     target << "X-Engine-Version: " << DIARYENGINE_VERSION << std::endl;
+    target << "X-Entry-Keywords: " << this->_inside->joinedKeywords() << std::endl;
     target << "Content-Type: multipart/mixed; boundary=\"" << this->_inside->boundaryString() << "\"" << std::endl;
 
     target << std::endl;
