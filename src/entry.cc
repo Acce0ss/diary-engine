@@ -209,25 +209,7 @@ namespace diaryengine {
     return this->_inside->_keywords.toStdList();
   }
 
-  bool Entry::writeToFile(std::__cxx11::string filePath)
-  {
-    std::ofstream target;
-    target.open(filePath);
-
-    if( ! target.fail() )
-    {
-
-      this->asFileContentTo(target);
-
-      return true;
-    }
-    else
-    {
-      return false;
-    }
-  }
-
-  bool Entry::asFileContentTo(std::ostream& target)
+  void Entry::asFileContentTo(std::ostream& target)
   {
     target << "From: \"" << this->author() << "\" <author@domain.com>" << std::endl;
     target << "Date: " << this->date() << std::endl;
@@ -249,7 +231,6 @@ namespace diaryengine {
 
     target << "--" << this->_inside->boundaryString() << "--" << std::endl;
 
-    return true;
   }
 }
 

@@ -46,8 +46,7 @@ namespace diaryengine {
       bool removeKeyword(std::string keyword);
       std::list<std::string> keywords();
 
-      bool writeToFile(std::string filePath);
-      bool asFileContentTo(std::ostream& target);
+      void asFileContentTo(std::ostream& target);
 
     private:
       struct Implementation;
