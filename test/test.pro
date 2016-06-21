@@ -5,7 +5,8 @@ TARGET = test
 LIBS += -L../src -ldiary-engine
 
 HEADERS += \
-    entrytestsuite.h
+    entrytestsuite.h \
+    booktestsuite.h
 
 
 TEST_HEADERS = $$find(HEADERS, .*testsuite.h)
