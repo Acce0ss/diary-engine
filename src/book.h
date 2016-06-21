@@ -18,6 +18,9 @@ namespace diaryengine {
       void setName(std::string name);
       std::string name();
 
+      void setDescription(std::string description);
+      std::string description();
+
       bool addEntry(std::shared_ptr<Entry> entry);
       bool removeEntry(long id);
 

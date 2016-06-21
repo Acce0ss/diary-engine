@@ -35,6 +35,12 @@ public:
       TS_ASSERT(testBook->name() == "testus")
     }
 
+    void testDescriptionCanBeSetAndRetrievedCorrectly()
+    {
+      testBook->setDescription("testus");
+      TS_ASSERT(testBook->description() == "testus")
+    }
+
     diaryengine::Book* testBook;
 };
 

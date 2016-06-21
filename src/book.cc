@@ -7,14 +7,17 @@
 
 namespace diaryengine {
 
-  struct Book::Implementation {
+  class Book::Implementation {
+    public:
       Implementation(std::string name) :
-        _name(name)
+        _name(name), _description(""),
+        _entries()
       {
 
       }
 
       std::string _name;
+      std::string _description;
       std::map<unsigned long, std::shared_ptr<Entry>> _entries;
   };
 
@@ -36,6 +39,16 @@ namespace diaryengine {
   std::__cxx11::string Book::name()
   {
     return this->_inside->_name;
+  }
+
+  void Book::setDescription(std::__cxx11::string description)
+  {
+    this->_inside->_description = description;
+  }
+
+  std::__cxx11::string Book::description()
+  {
+    return this->_inside->_description;
   }
 
   bool Book::addEntry(std::shared_ptr<Entry> entry)
