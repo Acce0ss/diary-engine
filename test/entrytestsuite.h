@@ -123,6 +123,7 @@ public:
           <<"Date: 2000-10-10T10:00:00+02:00" << std::endl
           <<"Message-ID: <" << testId << "@<journal name>" << std::endl
           <<"Subject: <entry title>" << std::endl
+          <<"X-Engine-Version: 0.1" << std::endl
           <<"Content-Type: multipart/mixed; boundary=\"bound-" << testId << "\"" << std::endl << std::endl
           <<"--bound-" << testId << std::endl
           <<"Content-Type: text/plain; charset=\"UTF-8\"" << std::endl

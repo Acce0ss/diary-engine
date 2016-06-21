@@ -222,6 +222,7 @@ namespace diaryengine {
     target << "Date: " << this->date() << std::endl;
     target << "Message-ID: <" << this->id() << "@" << this->_inside->_belongsTo << std::endl;
     target << "Subject: " << this->title() << std::endl;
+    target << "X-Engine-Version: " << DIARYENGINE_VERSION << std::endl;
     target << "Content-Type: multipart/mixed; boundary=\"" << this->_inside->boundaryString() << "\"" << std::endl;
 
     target << std::endl;

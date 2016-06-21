@@ -8,7 +8,8 @@ TEMPLATE = lib
 HEADERS += \
     entry.h \
     manager.h \
-    book.h
+    book.h \
+    author.h
 
 SOURCES += \
     entry.cc \

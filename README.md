@@ -28,20 +28,20 @@ text, even in the "headers". Multimedia attachments are included as defined
 in RFC 2045-2049 (MIME). Thus, example entry file would be:
 
 From: "Author Name" <author@domain.com>
-Date: 2000-10-10T10:00+0200
-Message-ID: <<uuid transformed into an integer>@domain.com>
+Date: 2000-10-10T10:00:00+02:00
+Message-ID: <<uuid transformed into an integer>@<journal name>>
 Subject: <entry title>
 Content-Type: multipart/mixed; 
         boundary="proper boundary"
 
 --proper boundary
-Content-type: text/plain; charset="UTF-8"
+Content-Type: text/plain; charset="UTF-8"
 this is text, äöly!
 
 --proper boundary
-Content-type: image/jpeg; name="whatever.jpg"
+Content-Type: image/jpeg; name="whatever.jpg"
 Content-Disposition: Attachment; filename="whatever.jpg"
-Content-transfer-encoding: base64
+Content-Transfer-Encoding: base64
 
 <loads of encoding>
 --proper boundary--
