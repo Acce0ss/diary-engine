@@ -11,9 +11,13 @@ namespace diaryengine {
   {
     public:
       Entry();
-      Entry(std::string author, std::string title,
-            std::string date, std::string textContent);
       ~Entry();
+
+      static std::shared_ptr<Entry> makeNew(std::string author,
+                                            std::string title,
+                                            std::string date,
+                                            std::string textContent,
+                                            std::string belongsTo="default");
 
       unsigned long id();
       void regenerateId();

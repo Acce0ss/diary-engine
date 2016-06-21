@@ -66,16 +66,27 @@ namespace diaryengine {
   {
   }
 
-  Entry::Entry(std::__cxx11::string author, std::__cxx11::string title,
-               std::__cxx11::string date, std::__cxx11::string textContent)
-    :
-      _inside(new Implementation(0, title, date, author))
-  {
-    this->_inside->_textContent = textContent;
-  }
-
   Entry::~Entry()
   {
+  }
+
+  std::shared_ptr<Entry> Entry::makeNew(std::string author,
+                                        std::string title,
+                                        std::string date,
+                                        std::string textContent,
+                                        std::string belongsTo)
+  {
+    std::shared_ptr<Entry> created = std::make_shared<Entry>();
+
+    created->setAuthor(author);
+    created->setTitle(title);
+    created->setDate(date);
+    created->setBelongsTo(belongsTo);
+    created->setTextContent(textContent);
+    created->regenerateId(); // generate a random id for this instance, as it is a new
+                             // entry
+
+    return created;
   }
 
   unsigned long Entry::id()

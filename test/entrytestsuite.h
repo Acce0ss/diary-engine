@@ -123,7 +123,7 @@ public:
           <<"Date: 2000-10-10T10:00:00+02:00" << std::endl
           <<"Message-ID: <" << testId << "@<journal name>" << std::endl
           <<"Subject: <entry title>" << std::endl
-          <<"X-Engine-Version: 0.1" << std::endl
+          <<"X-Engine-Version: " << DIARYENGINE_VERSION << std::endl
           <<"Content-Type: multipart/mixed; boundary=\"bound-" << testId << "\"" << std::endl << std::endl
           <<"--bound-" << testId << std::endl
           <<"Content-Type: text/plain; charset=\"UTF-8\"" << std::endl
@@ -138,6 +138,30 @@ public:
 
       std::stringstream target;
       testEntry->asFileContentTo(target);
+
+      TS_ASSERT_SAME_DATA(target.str().c_str(), testFileContent.str().c_str(), testFileContent.str().length());
+    }
+
+    void testNewEntriesAreMadeCorrectly()
+    {
+      auto newEntry = diaryengine::Entry::makeNew("Author Name", "<entry title>", "2000-10-10T10:00:00+02:00",
+                                                  "this is text, äöly!", "<journal name>");
+
+      unsigned long testId = newEntry->id();
+      std::stringstream testFileContent;
+      testFileContent << "From: \"Author Name\" <author@domain.com>" << std::endl
+          <<"Date: 2000-10-10T10:00:00+02:00" << std::endl
+          <<"Message-ID: <" << testId << "@<journal name>" << std::endl
+          <<"Subject: <entry title>" << std::endl
+          <<"X-Engine-Version: " << DIARYENGINE_VERSION << std::endl
+          <<"Content-Type: multipart/mixed; boundary=\"bound-" << testId << "\"" << std::endl << std::endl
+          <<"--bound-" << testId << std::endl
+          <<"Content-Type: text/plain; charset=\"UTF-8\"" << std::endl
+          <<"this is text, äöly!" << std::endl
+          <<"--bound-" << testId << "--" << std::endl;
+
+      std::stringstream target;
+      newEntry->asFileContentTo(target);
 
       TS_ASSERT_SAME_DATA(target.str().c_str(), testFileContent.str().c_str(), testFileContent.str().length());
     }
