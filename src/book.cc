@@ -19,6 +19,11 @@ namespace diaryengine {
       std::string _name;
       std::string _description;
       std::map<unsigned long, std::shared_ptr<Entry>> _entries;
+
+      bool hasEntry(long id)
+      {
+        return (this->_entries.find(id) != this->_entries.end());
+      }
   };
 
   Book::Book(std::string name) : _inside(new Book::Implementation(name))
@@ -53,7 +58,7 @@ namespace diaryengine {
 
   bool Book::addEntry(std::shared_ptr<Entry> entry)
   {
-    if(this->_inside->_entries.find(entry->id()) != this->_inside->_entries.end())
+    if(this->_inside->hasEntry(entry->id()))
     {
       //entry with this id already exists.
       return false;
@@ -67,7 +72,27 @@ namespace diaryengine {
 
   bool Book::removeEntry(long id)
   {
+    if(this->_inside->hasEntry(id))
+    {
+      this->_inside->_entries.erase(id);
+      return true;
+    }
+    else
+    {
+      return false;
+    }
+  }
 
+  std::shared_ptr<Entry> Book::entry(long id)
+  {
+    if(this->_inside->hasEntry(id))
+    {
+      return this->_inside->_entries.at(id);
+    }
+    else
+    {
+      return std::shared_ptr<Entry>(nullptr);
+    }
   }
 
   unsigned long Book::searchEntryByTitle(std::__cxx11::string searchWord)
