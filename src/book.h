@@ -23,10 +23,13 @@ namespace diaryengine {
 
       bool addEntry(std::shared_ptr<Entry> entry);
       bool removeEntry(long id);
+      std::shared_ptr<Entry> entry(long id);
+      bool addEntriesFrom(std::list<std::shared_ptr<Entry>> list);
 
-      unsigned long searchEntryByTitle(std::string searchWord);
-      unsigned long searchEntryByKeywords(std::list<std::string> keywords);
-      unsigned long searchEntryByFullText(std::string searchText);
+      std::list<std::shared_ptr<Entry>> searchEntriesByTitle(std::string searchWord);
+      std::list<std::shared_ptr<Entry>> searchEntriesByKeyword(std::string keyword);
+      std::list<std::shared_ptr<Entry>> searchEntriesByKeywords(std::list<std::string> keywords);
+      std::list<std::shared_ptr<Entry>> searchEntriesByFullText(std::string searchText);
 
     private:
       struct Implementation;
