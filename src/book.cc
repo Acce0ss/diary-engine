@@ -58,15 +58,20 @@ namespace diaryengine {
 
   bool Book::addEntry(std::shared_ptr<Entry> entry)
   {
-    if(this->_inside->hasEntry(entry->id()))
+    if(entry) // if entry isn't null
     {
-      //entry with this id already exists.
-      return false;
-    }
-    else
-    {
-      this->_inside->_entries.insert(std::make_pair(entry->id(), entry));
-      return true;
+      if(this->_inside->hasEntry(entry->id()))
+      {
+        //this id already exists, can't readd.
+        return false;
+      }
+      else
+      {
+        //Change the belongsTo value to represent this book.
+        entry->setBelongsTo(this->name());
+        this->_inside->_entries.insert(std::make_pair(entry->id(), entry));
+        return true;
+      }
     }
   }
 
