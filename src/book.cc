@@ -2,6 +2,7 @@
 
 #include <string>
 #include <map>
+#include <algorithm>
 
 #include "entry.h"
 
@@ -100,17 +101,49 @@ namespace diaryengine {
     }
   }
 
-  unsigned long Book::searchEntryByTitle(std::__cxx11::string searchWord)
+  bool Book::addEntriesFrom(std::list<std::shared_ptr<Entry> > list)
   {
 
   }
 
-  unsigned long Book::searchEntryByKeywords(std::list<std::__cxx11::string> keywords)
+  std::list<std::shared_ptr<Entry>> Book::searchEntriesByTitle(std::__cxx11::string searchWord)
   {
 
   }
 
-  unsigned long Book::searchEntryByFullText(std::__cxx11::string searchText)
+  std::list<std::shared_ptr<Entry> > Book::searchEntriesByKeyword(std::__cxx11::string keyword)
+  {
+    std::list<std::string> keywords;
+    keywords.push_back(keyword);
+    return this->searchEntriesByKeywords(keywords);
+  }
+
+  std::list<std::shared_ptr<Entry>> Book::searchEntriesByKeywords(std::list<std::__cxx11::string> keywords)
+  {
+    std::list<std::shared_ptr<Entry>> matches;
+    for(auto entry : this->_inside->_entries)
+    {
+      auto candidate = this->_inside->_entries.at(entry.first);
+      auto candidateKeywords = candidate->keywords();
+
+      bool hasAllKeywords = true;
+      for(auto keyword : keywords)
+      {
+        if(std::find(candidateKeywords.begin(), candidateKeywords.end(), keyword)
+           == candidateKeywords.end())
+        {
+          hasAllKeywords = false;
+        }
+
+      }
+
+      if (hasAllKeywords) matches.push_back(candidate);
+    }
+
+    return matches;
+  }
+
+  std::list<std::shared_ptr<Entry>> Book::searchEntriesByFullText(std::__cxx11::string searchText)
   {
 
   }
