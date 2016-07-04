@@ -24,6 +24,7 @@ namespace diaryengine {
       bool addEntry(std::shared_ptr<Entry> entry);
       bool removeEntry(long id);
       std::shared_ptr<Entry> entry(long id);
+      bool addEntriesFrom(std::list<std::shared_ptr<Entry>> list);
 
       std::list<std::shared_ptr<Entry>> searchEntriesByTitle(std::string searchWord);
       std::list<std::shared_ptr<Entry>> searchEntriesByKeyword(std::string keyword);
