@@ -15,7 +15,13 @@ namespace diaryengine {
       Manager();
       ~Manager();
 
-      bool saveBookToDisk(Book toBeSaved, std::string diaryRootpath);
+      void setRootpath(std::string path);
+      std::string rootPath();
+
+      bool addBook(Book newBook);
+      std::list<Book> books();
+
+      bool saveBookToDisk(Book toBeSaved);
 
       std::list<std::shared_ptr<Book>> books();
 

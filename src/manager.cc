@@ -5,7 +5,20 @@
 
 namespace diaryengine {
 
+  class Implementation {
+    public:
+      Implementation()
+        :
+      {
+      }
+
+      std::list<Book> _books;
+      std::string _rootpath;
+  };
+
   Manager::Manager()
+    :
+      _inside(new Implementation())
   {
 
   }
@@ -15,7 +28,7 @@ namespace diaryengine {
 
   }
 
-  bool Manager::saveBookToDisk(Book toBeSaved, std::__cxx11::string diaryRootpath)
+  bool Manager::saveBookToDisk(Book toBeSaved)
   {
 
   }
