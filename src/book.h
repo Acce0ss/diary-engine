@@ -12,6 +12,10 @@ namespace diaryengine {
   class Book
   {
     public:
+
+      static std::shared_ptr<Book> makeNew(std::string name,
+                                           std::string description = "");
+
       Book();
       ~Book();
 

@@ -28,6 +28,17 @@ namespace diaryengine {
       }
   };
 
+  std::shared_ptr<Book> Book::makeNew(std::string name,
+                                      std::string description)
+  {
+    std::shared_ptr<Book> created = std::make_shared<Book>();
+
+    created->setName(name);
+    created->setDescription(description);
+
+    return created;
+  }
+
   Book::Book() : _inside(new Book::Implementation())
   {
 
