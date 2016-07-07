@@ -3,6 +3,8 @@
 #include <string>
 #include <map>
 #include <algorithm>
+#include <fstream>
+#include <sstream>
 
 #include "entry.h"
 
@@ -135,7 +137,7 @@ namespace diaryengine {
     std::list<std::shared_ptr<Entry>> matches;
     for(auto entry : this->_inside->_entries)
     {
-      auto candidate = this->_inside->_entries.at(entry.first);
+      auto candidate = entry.second;
       auto candidateKeywords = candidate->keywords();
 
       bool hasAllKeywords = true;
@@ -158,6 +160,42 @@ namespace diaryengine {
   std::list<std::shared_ptr<Entry>> Book::searchEntriesByFullText(std::string searchText)
   {
 
+  }
+
+  bool Book::saveToDisk(std::string bookpath)
+  {
+    std::ofstream bookDescFile(bookpath + "/" + "bookinfo.txt", std::ofstream::out);
+
+    if(bookDescFile.is_open())
+    {
+
+      bookDescFile << "X-Book-Title: " << this->_inside->_name << std::endl;
+      bookDescFile << "X-Book-Description: " << this->_inside->_description << std::endl;
+      bookDescFile << "X-Book-Entries: " << this->_inside->_name << std::endl;
+
+      for(auto mapping : this->_inside->_entries)
+      {
+        auto entry = mapping.second;
+        bookDescFile << " " << entry->id() << std::endl;
+
+        std::stringstream id;
+        id << entry->id();
+        std::ofstream entryFile(bookpath + "/" + id.str(), std::ofstream::out );
+
+        if(entryFile.is_open())
+        {
+          entry->asFileContentTo(entryFile);
+          entryFile.close();
+        }
+        else
+        {
+          return false;
+        }
+      }
+    }
+
+    bookDescFile.close();
+    return true;
   }
 
 } // namespace diaryengine

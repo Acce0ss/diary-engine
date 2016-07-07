@@ -15,15 +15,18 @@ namespace diaryengine {
       Manager();
       ~Manager();
 
-      void setRootpath(std::string path);
+      static std::shared_ptr<Manager> makeNew(std::string rootpath);
+
+      bool setRootpath(std::string path);
       std::string rootPath();
 
-      bool addBook(Book newBook);
-      std::list<Book> books();
-
-      bool saveBookToDisk(Book toBeSaved);
-
+      bool addBook(std::shared_ptr<Book> newBook);
+      bool removeBook(std::shared_ptr<Book> bookToRemove);
       std::list<std::shared_ptr<Book>> books();
+
+      std::list<std::shared_ptr<Book>> searchBooksByName(std::string name);
+
+      bool saveAllBooksToDisk();
 
     private:
       struct Implementation;

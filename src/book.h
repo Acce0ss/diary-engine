@@ -35,6 +35,8 @@ namespace diaryengine {
       std::list<std::shared_ptr<Entry>> searchEntriesByKeywords(std::list<std::string> keywords);
       std::list<std::shared_ptr<Entry>> searchEntriesByFullText(std::string searchText);
 
+      bool saveToDisk(std::string bookpath);
+
     private:
       struct Implementation;
       std::unique_ptr<Implementation> _inside;

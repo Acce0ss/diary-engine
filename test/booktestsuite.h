@@ -4,6 +4,7 @@
 #include <cxxtest/TestSuite.h>
 
 #include <QDateTime>
+#include <QDir>
 
 #include <algorithm>
 #include <list>
@@ -17,12 +18,11 @@ public:
 
     void setUp()
     {
-      testBook = new diaryengine::Book("test");
+      testBook = diaryengine::Book::makeNew("test");
     }
 
     void tearDown()
     {
-      delete testBook;
     }
 
     std::shared_ptr<diaryengine::Entry> createTestEntry()
@@ -162,7 +162,36 @@ public:
       TS_ASSERT_DIFFERS(std::find(matches.begin(), matches.end(), testEntry1), matches.end());
     }
 
-    diaryengine::Book* testBook;
+    void testWritingToDiskWorks()
+    {
+      auto testEntry = createTestEntry();
+      auto testEntry1 = createTestEntry();
+      auto testEntry2 = createTestEntry();
+      auto testEntry3 = createTestEntry();
+      testEntry->addKeyword("test1");
+      testEntry->addKeyword("tes");
+      testEntry->addKeyword("tst");
+      testEntry1->addKeyword("test2");
+      testEntry1->addKeyword("tes");
+      testEntry1->addKeyword("tst");
+      testEntry2->addKeyword("test3");
+      testEntry2->addKeyword("tes3");
+      testEntry2->addKeyword("tst3");
+      testEntry3->addKeyword("test4");
+      testEntry3->addKeyword("tes4");
+      testEntry3->addKeyword("tst4");
+      testBook->addEntry(testEntry);
+      testBook->addEntry(testEntry1);
+      testBook->addEntry(testEntry2);
+      testBook->addEntry(testEntry3);
+
+      QDir dir;
+
+      dir.mkpath("test/12/");
+      TS_ASSERT(testBook->saveToDisk("test/12/"));
+    }
+
+    std::shared_ptr<diaryengine::Book> testBook;
 };
 
 
