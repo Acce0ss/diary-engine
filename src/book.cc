@@ -49,22 +49,22 @@ namespace diaryengine {
 
   }
 
-  void Book::setName(std::__cxx11::string name)
+  void Book::setName(std::string name)
   {
     this->_inside->_name = name;
   }
 
-  std::__cxx11::string Book::name()
+  std::string Book::name()
   {
     return this->_inside->_name;
   }
 
-  void Book::setDescription(std::__cxx11::string description)
+  void Book::setDescription(std::string description)
   {
     this->_inside->_description = description;
   }
 
-  std::__cxx11::string Book::description()
+  std::string Book::description()
   {
     return this->_inside->_description;
   }
@@ -118,19 +118,19 @@ namespace diaryengine {
 
   }
 
-  std::list<std::shared_ptr<Entry>> Book::searchEntriesByTitle(std::__cxx11::string searchWord)
+  std::list<std::shared_ptr<Entry>> Book::searchEntriesByTitle(std::string searchWord)
   {
 
   }
 
-  std::list<std::shared_ptr<Entry> > Book::searchEntriesByKeyword(std::__cxx11::string keyword)
+  std::list<std::shared_ptr<Entry> > Book::searchEntriesByKeyword(std::string keyword)
   {
     std::list<std::string> keywords;
     keywords.push_back(keyword);
     return this->searchEntriesByKeywords(keywords);
   }
 
-  std::list<std::shared_ptr<Entry>> Book::searchEntriesByKeywords(std::list<std::__cxx11::string> keywords)
+  std::list<std::shared_ptr<Entry>> Book::searchEntriesByKeywords(std::list<std::string> keywords)
   {
     std::list<std::shared_ptr<Entry>> matches;
     for(auto entry : this->_inside->_entries)
@@ -155,7 +155,7 @@ namespace diaryengine {
     return matches;
   }
 
-  std::list<std::shared_ptr<Entry>> Book::searchEntriesByFullText(std::__cxx11::string searchText)
+  std::list<std::shared_ptr<Entry>> Book::searchEntriesByFullText(std::string searchText)
   {
 
   }
