@@ -10,8 +10,9 @@ namespace diaryengine {
 
   class Book::Implementation {
     public:
-      Implementation(std::string name) :
-        _name(name), _description(""),
+      Implementation() :
+        _name(""),
+        _description(""),
         _entries()
       {
 
@@ -27,7 +28,7 @@ namespace diaryengine {
       }
   };
 
-  Book::Book(std::string name) : _inside(new Book::Implementation(name))
+  Book::Book() : _inside(new Book::Implementation())
   {
 
   }

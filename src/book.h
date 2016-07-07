@@ -12,7 +12,7 @@ namespace diaryengine {
   class Book
   {
     public:
-      Book(std::__cxx11::string name);
+      Book();
       ~Book();
 
       void setName(std::string name);

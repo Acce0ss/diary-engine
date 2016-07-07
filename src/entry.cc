@@ -19,17 +19,16 @@ namespace diaryengine {
   class Entry::Implementation {
     public:
 
-      Implementation(unsigned long id=0, std::string title="",
-                     std::string date="0000-00-00T00:00:00Z",
-                     std::string author="Nobody")
+      Implementation()
         :
-          _id(id), _title(title), _author(author), _belongsTo(""),
+          _id(0), _title(""), _author(""), _belongsTo(""),
           _textContent(""),
           _multimedia(),
           _date(),
           _keywords()
       {
-        _date = QDateTime::fromString(QString::fromStdString(date), Qt::DateFormat::ISODate);
+        _date = QDateTime::fromString(QString::fromStdString("0000-00-00T00:00:00Z"),
+                                      Qt::DateFormat::ISODate);
       }
 
       unsigned long _id;
