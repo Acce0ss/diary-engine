@@ -162,7 +162,9 @@ public:
       TS_ASSERT_DIFFERS(std::find(matches.begin(), matches.end(), testEntry1), matches.end());
     }
 
-    void testWritingToDiskWorks()
+    //This test should be moved to integration tests, since it depends on
+    //the filesystem having writable space at /tmp/
+    void testWritingToDiskReturnsTrueOnSuccess()
     {
       auto testEntry = createTestEntry();
       auto testEntry1 = createTestEntry();
@@ -187,8 +189,11 @@ public:
 
       QDir dir;
 
-      dir.mkpath("test/12/");
-      TS_ASSERT(testBook->saveToDisk("test/12/"));
+      dir.mkpath("/tmp/diary-test/12/");
+      TS_ASSERT(testBook->saveToDisk("/tmp/diary-test/12/"));
+
+      std::string removeCommand = "rm -r /tmp/diary-test/";
+      system(removeCommand.c_str());
     }
 
     std::shared_ptr<diaryengine::Book> testBook;

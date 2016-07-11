@@ -193,6 +193,10 @@ namespace diaryengine {
         }
       }
     }
+    else
+    {
+      return false;
+    }
 
     bookDescFile.close();
     return true;

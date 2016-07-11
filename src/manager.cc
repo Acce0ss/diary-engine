@@ -125,7 +125,7 @@ namespace diaryengine {
 
       if(bookDir.exists()) bookDir.removeRecursively();
 
-      if( ! bookDir.mkpath(QString::fromStdString(bookpath)))
+      if( ! QDir().mkpath(QString::fromStdString(bookpath)))
       {
         return false;
       }
