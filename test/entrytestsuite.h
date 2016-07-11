@@ -121,7 +121,7 @@ public:
       std::stringstream testFileContent;
       testFileContent << "From: \"Author Name\" <author@domain.com>" << std::endl
           <<"Date: 2000-10-10T10:00:00+02:00" << std::endl
-          <<"Message-ID: <" << testId << "@<journal name>" << std::endl
+          <<"Message-ID: <" << testId << "@<journal name>>" << std::endl
           <<"Subject: <entry title>" << std::endl
           <<"X-Engine-Version: " << DIARYENGINE_VERSION << std::endl
           <<"X-Entry-Keywords: again,me,test" << std::endl
@@ -156,7 +156,7 @@ public:
       std::stringstream testFileContent;
       testFileContent << "From: \"Author Name\" <author@domain.com>" << std::endl
           <<"Date: 2000-10-10T10:00:00+02:00" << std::endl
-          <<"Message-ID: <" << testId << "@<journal name>" << std::endl
+          <<"Message-ID: <" << testId << "@<journal name>>" << std::endl
           <<"Subject: <entry title>" << std::endl
           <<"X-Engine-Version: " << DIARYENGINE_VERSION << std::endl
           <<"X-Entry-Keywords: " << std::endl

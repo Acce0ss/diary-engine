@@ -229,7 +229,7 @@ namespace diaryengine {
   {
     target << "From: \"" << this->author() << "\" <author@domain.com>" << std::endl;
     target << "Date: " << this->date() << std::endl;
-    target << "Message-ID: <" << this->id() << "@" << this->_inside->_belongsTo << std::endl;
+    target << "Message-ID: <" << this->id() << "@" << this->_inside->_belongsTo << ">" << std::endl;
     target << "Subject: " << this->title() << std::endl;
     target << "X-Engine-Version: " << DIARYENGINE_VERSION << std::endl;
     target << "X-Entry-Keywords: " << this->_inside->joinedKeywords() << std::endl;
