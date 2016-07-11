@@ -21,11 +21,14 @@ version). Thus keeping them readable without any special software. Multimedia
 will be encoded with base64. Furthermore, there is support for keyword 
 and fulltext search (eventually).
 
-Each book (diary) will be a directory, holding entries in subdirectories named
-by <year>/<month>/<day>/. The entries will be formatted as email messages, as
-defined in RFC 5322 with the exception that UTF-8 will be used for all plain
-text, even in the "headers". Multimedia attachments are included as defined 
-in RFC 2045-2049 (MIME). Thus, example entry file would be:
+Each book (diary) will be a directory. The entries will be formatted as 
+email messages, 
+thus enabling reading with an email client, for simplified multimedia 
+viewing. The format used is as defined in RFC 5322 with the exception that 
+UTF-8 will be used for all plain text, even in the "headers". Multimedia 
+attachments are included as defined in RFC 2045-2049 (MIME). 
+
+Thus, example entry file would be:
 
 From: "Author Name" <author@domain.com>
 Date: 2000-10-10T10:00:00+02:00
@@ -38,6 +41,7 @@ Content-Type: multipart/mixed;
 
 --proper boundary
 Content-Type: text/plain; charset="UTF-8"
+
 this is text, äöly!
 
 --proper boundary
@@ -46,6 +50,7 @@ Content-Disposition: Attachment; filename="whatever.jpg"
 Content-Transfer-Encoding: base64
 
 <loads of encoding>
+
 --proper boundary--
 
 --------

@@ -127,8 +127,8 @@ public:
           <<"X-Entry-Keywords: again,me,test" << std::endl
           <<"Content-Type: multipart/mixed; boundary=\"bound-" << testId << "\"" << std::endl << std::endl
           <<"--bound-" << testId << std::endl
-          <<"Content-Type: text/plain; charset=\"UTF-8\"" << std::endl
-          <<"this is text, äöly!" << std::endl
+          <<"Content-Type: text/plain; charset=\"UTF-8\"" << std::endl << std::endl
+          <<"this is text, äöly!" << std::endl<< std::endl
           <<"--bound-" << testId << "--" << std::endl;
 
       testEntry->setAuthor("Author Name");
@@ -162,8 +162,8 @@ public:
           <<"X-Entry-Keywords: " << std::endl
           <<"Content-Type: multipart/mixed; boundary=\"bound-" << testId << "\"" << std::endl << std::endl
           <<"--bound-" << testId << std::endl
-          <<"Content-Type: text/plain; charset=\"UTF-8\"" << std::endl
-          <<"this is text, äöly!" << std::endl
+          <<"Content-Type: text/plain; charset=\"UTF-8\"" << std::endl << std::endl
+          <<"this is text, äöly!" << std::endl << std::endl
           <<"--bound-" << testId << "--" << std::endl;
 
       std::stringstream target;

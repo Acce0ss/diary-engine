@@ -238,8 +238,8 @@ namespace diaryengine {
     target << std::endl;
 
     target << this->_inside->boundaryLine();
-    target << "Content-Type: text/plain; charset=\"UTF-8\"" << std::endl;
-    target << this->textContent() << std::endl;
+    target << "Content-Type: text/plain; charset=\"UTF-8\"" << std::endl << std::endl;
+    target << this->textContent() << std::endl << std::endl;
 
     for(auto multimedia : this->base64EncodedMultimediaParts())
     {
