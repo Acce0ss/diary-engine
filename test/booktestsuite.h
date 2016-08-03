@@ -5,6 +5,7 @@
 
 #include <QDateTime>
 #include <QDir>
+#include <QString>
 
 #include <algorithm>
 #include <list>
@@ -183,11 +184,14 @@ public:
 
       QDir dir;
 
-      dir.mkpath("/tmp/diary-test/12/");
-      TS_ASSERT(testBook->saveToDisk("/tmp/diary-test/12/"));
+      std::stringstream filepath;
+      filepath << "/tmp/diaryengine_book_test/"
+               << testBook->representation() << "/";
 
-      std::string removeCommand = "rm -r /tmp/diary-test/";
-      system(removeCommand.c_str());
+      dir.mkpath(QString::fromStdString(filepath.str()));
+      TS_ASSERT(testBook->saveToDisk(filepath.str()));
+
+      dir.removeRecursively();
     }
 
     std::shared_ptr<diaryengine::Entry> createTestEntry()

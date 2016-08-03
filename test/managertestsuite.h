@@ -3,6 +3,8 @@
 
 #include <cxxtest/TestSuite.h>
 
+#include <QDir>
+
 #include "manager.h"
 
 //The root path related tests should be moved to integration tests,
@@ -19,8 +21,8 @@ public:
 
     void tearDown()
     {
-      std::string removeCommand = "rm -r " + testPath;
-      system(removeCommand.c_str());
+      QDir toRm(testPath.c_str());
+      toRm.removeRecursively();
     }
 
     void testRootpathIsSetCorrectlyAfterConstructingObject(void)
@@ -95,7 +97,7 @@ public:
       return testBook;
     }
 
-    const std::string testPath = "/tmp/diaryengine_test/";
+    const std::string testPath = "/tmp/diaryengine_manager_test/";
     std::shared_ptr<diaryengine::Manager> testManager;
     std::shared_ptr<diaryengine::Book> testBook;
 };
