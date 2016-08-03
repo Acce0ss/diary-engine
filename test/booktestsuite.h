@@ -25,12 +25,6 @@ public:
     {
     }
 
-    std::shared_ptr<diaryengine::Entry> createTestEntry()
-    {
-      return diaryengine::Entry::makeNew("\"al\" <al@lo.co>",
-                                         "test", "2000-10-10T10:00:00+02:00","test","test");
-    }
-
     void testNameIsSetCorrectlyByConstructor(void)
     {
       TS_ASSERT(testBook->name() == "test")
@@ -194,6 +188,12 @@ public:
 
       std::string removeCommand = "rm -r /tmp/diary-test/";
       system(removeCommand.c_str());
+    }
+
+    std::shared_ptr<diaryengine::Entry> createTestEntry()
+    {
+      return diaryengine::Entry::makeNew("\"al\" <al@lo.co>",
+                                         "test", "2000-10-10T10:00:00+02:00","test","test");
     }
 
     std::shared_ptr<diaryengine::Book> testBook;
