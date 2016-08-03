@@ -1,4 +1,4 @@
-QMAKE_CXXFLAGS += -std=c++11
+CONFIG += c++11
 
 CONFIG += console
 CONFIG -= app_bundle
