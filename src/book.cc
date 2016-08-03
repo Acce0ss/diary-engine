@@ -208,11 +208,9 @@ namespace diaryengine {
       for(auto mapping : this->_inside->_entries)
       {
         auto entry = mapping.second;
-        bookDescFile << " " << entry->id() << std::endl;
+        bookDescFile << " " << entry->representation() << std::endl;
 
-        std::stringstream id;
-        id << entry->id();
-        std::ofstream entryFile(bookpath + "/" + id.str(), std::ofstream::out );
+        std::ofstream entryFile(bookpath + "/" + entry->representation(), std::ofstream::out );
 
         if(entryFile.is_open())
         {
