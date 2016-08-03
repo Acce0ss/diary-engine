@@ -28,9 +28,9 @@ namespace diaryengine {
       std::map<unsigned long, std::shared_ptr<Entry>> _entries;
       unsigned long _id;
 
-      bool hasEntry(long id)
+      bool hasEntry(unsigned long id)
       {
-        return (this->_entries.find(id) != this->_entries.end());
+        return (_entries.find(id) != _entries.end());
       }
   };
 
@@ -108,7 +108,7 @@ namespace diaryengine {
     }
   }
 
-  bool Book::removeEntry(long id)
+  bool Book::removeEntry(unsigned long id)
   {
     if(this->_inside->hasEntry(id))
     {
@@ -121,7 +121,7 @@ namespace diaryengine {
     }
   }
 
-  std::shared_ptr<Entry> Book::entry(long id)
+  std::shared_ptr<Entry> Book::entry(unsigned long id)
   {
     if(this->_inside->hasEntry(id))
     {
