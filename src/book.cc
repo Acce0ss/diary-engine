@@ -142,7 +142,7 @@ namespace diaryengine {
     }
   }
 
-  const std::map<unsigned long, std::shared_ptr<Entry> >&Book::entries()
+  const std::map<unsigned long, std::shared_ptr<Entry> >& Book::entries()
   {
     return this->_inside->_entries;
   }

@@ -3,6 +3,7 @@
 
 #include <memory>
 #include <list>
+#include <map>
 
 namespace diaryengine {
 

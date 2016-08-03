@@ -75,13 +75,13 @@ namespace diaryengine {
 
   bool Manager::addBook(std::shared_ptr<Book> newBook)
   {
-    if(this->_inside->hasBook(newBook))
+    if(this->_inside->hasBook(newBook->id()))
     {
       return false;
     }
     else
     {
-      this->_inside->_books.push_back(newBook);
+      this->_inside->_books.insert(std::make_pair(newBook->id(), newBook));
       return true;
     }
   }

@@ -4,6 +4,7 @@
 #include <memory>
 #include <string>
 #include <list>
+#include <map>
 
 namespace diaryengine {
 
