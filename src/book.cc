@@ -142,7 +142,12 @@ namespace diaryengine {
     }
   }
 
-  bool Book::addEntriesFrom(std::list<std::shared_ptr<Entry> > list)
+  const std::map<unsigned long, std::shared_ptr<Entry> >&Book::entries()
+  {
+    return this->_inside->_entries;
+  }
+
+  bool Book::addEntriesFrom(const std::list<std::shared_ptr<Entry> >& list)
   {
 
   }
