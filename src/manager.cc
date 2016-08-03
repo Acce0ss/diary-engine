@@ -19,14 +19,12 @@ namespace diaryengine {
       {
       }
 
-      std::list<std::shared_ptr<Book>> _books;
+      std::map<unsigned long, std::shared_ptr<Book>> _books;
       std::string _rootpath;
 
-      bool hasBook(std::shared_ptr<Book> book)
+      bool hasBook(unsigned long id)
       {
-        return (std::find(this->_books.begin(),
-                          this->_books.end(), book)
-                != this->_books.end());
+        return (_books.find(id) != this->_books.end());
       }
   };
 
@@ -88,15 +86,15 @@ namespace diaryengine {
     }
   }
 
-  bool Manager::removeBook(std::shared_ptr<Book> bookToRemove)
+  bool Manager::removeBook(unsigned long id)
   {
-    if( ! this->_inside->hasBook(bookToRemove))
+    if( ! this->_inside->hasBook(id))
     {
       return false;
     }
     else
     {
-      this->_inside->_books.remove(bookToRemove);
+      this->_inside->_books.erase(id);
       return true;
     }
   }
@@ -113,12 +111,16 @@ namespace diaryengine {
 
   bool Manager::saveAllBooksToDisk()
   {
-    unsigned int diaryNumber = 1;
 
-    for(auto book : this->_inside->_books)
+    //TODO: save the books into a temporary location first;
+    //      then copy to real rootpath. This is to avoid dataloss
+    //      in case of write failure.
+    for(auto const& idBookPair : this->_inside->_books)
     {
+
       std::stringstream ss;
-      ss << this->_inside->_rootpath << "/" << diaryNumber << "/";
+      ss << this->_inside->_rootpath << "/"
+         << idBookPair.second->representation() << "/";
       std::string bookpath = ss.str();
 
       QDir bookDir(QString::fromStdString(bookpath));
@@ -130,7 +132,7 @@ namespace diaryengine {
         return false;
       }
 
-      if( ! book->saveToDisk(bookpath) ) return false;
+      if( ! idBookPair.second->saveToDisk(bookpath) ) return false;
     }
 
     return true;

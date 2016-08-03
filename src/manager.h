@@ -21,8 +21,8 @@ namespace diaryengine {
       std::string rootPath();
 
       bool addBook(std::shared_ptr<Book> newBook);
-      bool removeBook(std::shared_ptr<Book> bookToRemove);
-      std::list<std::shared_ptr<Book>> books();
+      bool removeBook(unsigned long id);
+      std::shared_ptr<Book> book(unsigned long id);
 
       std::list<std::shared_ptr<Book>> searchBooksByName(std::string name);
 
