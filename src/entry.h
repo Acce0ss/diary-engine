@@ -22,6 +22,8 @@ namespace diaryengine {
       unsigned long id();
       void regenerateId();
 
+      std::string representation();
+
       void setBelongsTo(std::string journalName);
 
       void setTitle(std::string title);

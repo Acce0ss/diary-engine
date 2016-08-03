@@ -12,7 +12,7 @@ MAKEFILE      = Makefile
 
 CC            = gcc
 CXX           = g++
-DEFINES       = -DQT_NO_DEBUG -DQT_GUI_LIB -DQT_CORE_LIB
+DEFINES       = -DDIARYENGINE_VERSION=\"0.1\" -DQT_NO_DEBUG -DQT_GUI_LIB -DQT_CORE_LIB
 CFLAGS        = -pipe -O2 -march=x86-64 -mtune=generic -O2 -pipe -fstack-protector-strong -Wall -W -D_REENTRANT -fPIC $(DEFINES)
 CXXFLAGS      = -pipe -std=c++11 -O2 -march=x86-64 -mtune=generic -O2 -pipe -fstack-protector-strong -Wall -W -D_REENTRANT -fPIC $(DEFINES)
 INCPATH       = -I. -I. -isystem /usr/include/qt -isystem /usr/include/qt/QtGui -isystem /usr/include/qt/QtCore -I. -I/usr/lib/qt/mkspecs/linux-g++
@@ -193,7 +193,8 @@ DIST          = /usr/lib/qt/mkspecs/features/spec_pre.prf \
 		/usr/lib/qt/mkspecs/features/lex.prf \
 		src.pro entry.h \
 		manager.h \
-		book.h entry.cc \
+		book.h \
+		author.h entry.cc \
 		manager.cc \
 		book.cc
 QMAKE_TARGET  = diary-engine
@@ -519,7 +520,7 @@ dist: distdir FORCE
 distdir: FORCE
 	@test -d $(DISTDIR) || mkdir -p $(DISTDIR)
 	$(COPY_FILE) --parents $(DIST) $(DISTDIR)/
-	$(COPY_FILE) --parents entry.h manager.h book.h $(DISTDIR)/
+	$(COPY_FILE) --parents entry.h manager.h book.h author.h $(DISTDIR)/
 	$(COPY_FILE) --parents entry.cc manager.cc book.cc $(DISTDIR)/
 
 
@@ -561,10 +562,13 @@ compiler_clean:
 entry.o: entry.cc entry.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o entry.o entry.cc
 
-manager.o: manager.cc manager.h
+manager.o: manager.cc manager.h \
+		book.h \
+		entry.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o manager.o manager.cc
 
-book.o: book.cc book.h
+book.o: book.cc book.h \
+		entry.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o book.o book.cc
 
 ####### Install

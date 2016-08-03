@@ -4,6 +4,8 @@
 #include <cxxtest/TestSuite.h>
 
 #include <QDateTime>
+#include <QDir>
+#include <QString>
 
 #include <algorithm>
 #include <list>
@@ -17,18 +19,11 @@ public:
 
     void setUp()
     {
-      testBook = new diaryengine::Book("test");
+      testBook = diaryengine::Book::makeNew("test");
     }
 
     void tearDown()
     {
-      delete testBook;
-    }
-
-    std::shared_ptr<diaryengine::Entry> createTestEntry()
-    {
-      return diaryengine::Entry::makeNew("\"al\" <al@lo.co>",
-                                         "test", "2000-10-10T10:00:00+02:00","test","test");
     }
 
     void testNameIsSetCorrectlyByConstructor(void)
@@ -162,7 +157,50 @@ public:
       TS_ASSERT_DIFFERS(std::find(matches.begin(), matches.end(), testEntry1), matches.end());
     }
 
-    diaryengine::Book* testBook;
+    //This test should be moved to integration tests, since it depends on
+    //the filesystem having writable space at /tmp/
+    void testWritingToDiskReturnsTrueOnSuccess()
+    {
+      auto testEntry = createTestEntry();
+      auto testEntry1 = createTestEntry();
+      auto testEntry2 = createTestEntry();
+      auto testEntry3 = createTestEntry();
+      testEntry->addKeyword("test1");
+      testEntry->addKeyword("tes");
+      testEntry->addKeyword("tst");
+      testEntry1->addKeyword("test2");
+      testEntry1->addKeyword("tes");
+      testEntry1->addKeyword("tst");
+      testEntry2->addKeyword("test3");
+      testEntry2->addKeyword("tes3");
+      testEntry2->addKeyword("tst3");
+      testEntry3->addKeyword("test4");
+      testEntry3->addKeyword("tes4");
+      testEntry3->addKeyword("tst4");
+      testBook->addEntry(testEntry);
+      testBook->addEntry(testEntry1);
+      testBook->addEntry(testEntry2);
+      testBook->addEntry(testEntry3);
+
+      QDir dir;
+
+      std::stringstream filepath;
+      filepath << "/tmp/diaryengine_book_test/"
+               << testBook->representation() << "/";
+
+      dir.mkpath(QString::fromStdString(filepath.str()));
+      TS_ASSERT(testBook->saveToDisk(filepath.str()));
+
+      dir.removeRecursively();
+    }
+
+    std::shared_ptr<diaryengine::Entry> createTestEntry()
+    {
+      return diaryengine::Entry::makeNew("\"al\" <al@lo.co>",
+                                         "test", "2000-10-10T10:00:00+02:00","test","test");
+    }
+
+    std::shared_ptr<diaryengine::Book> testBook;
 };
 
 

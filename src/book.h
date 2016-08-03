@@ -4,6 +4,7 @@
 #include <memory>
 #include <string>
 #include <list>
+#include <map>
 
 namespace diaryengine {
 
@@ -12,8 +13,17 @@ namespace diaryengine {
   class Book
   {
     public:
-      Book(std::__cxx11::string name);
+
+      static std::shared_ptr<Book> makeNew(std::string name,
+                                           std::string description = "");
+
+      Book();
       ~Book();
+
+      unsigned long id();
+      void regenerateId();
+
+      std::string representation();
 
       void setName(std::string name);
       std::string name();
@@ -22,14 +32,17 @@ namespace diaryengine {
       std::string description();
 
       bool addEntry(std::shared_ptr<Entry> entry);
-      bool removeEntry(long id);
-      std::shared_ptr<Entry> entry(long id);
-      bool addEntriesFrom(std::list<std::shared_ptr<Entry>> list);
+      bool removeEntry(unsigned long id);
+      std::shared_ptr<Entry> entry(unsigned long id);
+      const std::map<unsigned long, std::shared_ptr<Entry>>& entries();
+      bool addEntriesFrom(const std::list<std::shared_ptr<Entry>>& list);
 
       std::list<std::shared_ptr<Entry>> searchEntriesByTitle(std::string searchWord);
       std::list<std::shared_ptr<Entry>> searchEntriesByKeyword(std::string keyword);
       std::list<std::shared_ptr<Entry>> searchEntriesByKeywords(std::list<std::string> keywords);
       std::list<std::shared_ptr<Entry>> searchEntriesByFullText(std::string searchText);
+
+      bool saveToDisk(std::string bookpath);
 
     private:
       struct Implementation;

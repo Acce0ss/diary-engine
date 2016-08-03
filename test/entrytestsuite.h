@@ -121,14 +121,14 @@ public:
       std::stringstream testFileContent;
       testFileContent << "From: \"Author Name\" <author@domain.com>" << std::endl
           <<"Date: 2000-10-10T10:00:00+02:00" << std::endl
-          <<"Message-ID: <" << testId << "@<journal name>" << std::endl
+          <<"Message-ID: <" << testId << "@<journal name>>" << std::endl
           <<"Subject: <entry title>" << std::endl
           <<"X-Engine-Version: " << DIARYENGINE_VERSION << std::endl
           <<"X-Entry-Keywords: again,me,test" << std::endl
           <<"Content-Type: multipart/mixed; boundary=\"bound-" << testId << "\"" << std::endl << std::endl
           <<"--bound-" << testId << std::endl
-          <<"Content-Type: text/plain; charset=\"UTF-8\"" << std::endl
-          <<"this is text, äöly!" << std::endl
+          <<"Content-Type: text/plain; charset=\"UTF-8\"" << std::endl << std::endl
+          <<"this is text, äöly!" << std::endl<< std::endl
           <<"--bound-" << testId << "--" << std::endl;
 
       testEntry->setAuthor("Author Name");
@@ -156,14 +156,14 @@ public:
       std::stringstream testFileContent;
       testFileContent << "From: \"Author Name\" <author@domain.com>" << std::endl
           <<"Date: 2000-10-10T10:00:00+02:00" << std::endl
-          <<"Message-ID: <" << testId << "@<journal name>" << std::endl
+          <<"Message-ID: <" << testId << "@<journal name>>" << std::endl
           <<"Subject: <entry title>" << std::endl
           <<"X-Engine-Version: " << DIARYENGINE_VERSION << std::endl
           <<"X-Entry-Keywords: " << std::endl
           <<"Content-Type: multipart/mixed; boundary=\"bound-" << testId << "\"" << std::endl << std::endl
           <<"--bound-" << testId << std::endl
-          <<"Content-Type: text/plain; charset=\"UTF-8\"" << std::endl
-          <<"this is text, äöly!" << std::endl
+          <<"Content-Type: text/plain; charset=\"UTF-8\"" << std::endl << std::endl
+          <<"this is text, äöly!" << std::endl << std::endl
           <<"--bound-" << testId << "--" << std::endl;
 
       std::stringstream target;

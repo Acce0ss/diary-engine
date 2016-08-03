@@ -19,17 +19,16 @@ namespace diaryengine {
   class Entry::Implementation {
     public:
 
-      Implementation(unsigned long id=0, std::string title="",
-                     std::string date="0000-00-00T00:00:00Z",
-                     std::string author="Nobody")
+      Implementation()
         :
-          _id(id), _title(title), _author(author), _belongsTo(""),
+          _id(0), _title(""), _author(""), _belongsTo(""),
           _textContent(""),
           _multimedia(),
           _date(),
           _keywords()
       {
-        _date = QDateTime::fromString(QString::fromStdString(date), Qt::DateFormat::ISODate);
+        _date = QDateTime::fromString(QString::fromStdString("0000-00-00T00:00:00Z"),
+                                      Qt::DateFormat::ISODate);
       }
 
       unsigned long _id;
@@ -117,6 +116,15 @@ namespace diaryengine {
     memcpy(&temp, QUuid::createUuid().toRfc4122().left(8).data(), sizeof(unsigned long));
 
     this->_inside->_id = temp;
+  }
+
+  std::string Entry::representation()
+  {
+    std::stringstream ss;
+    ss << this->_inside->_id << "_"
+       << this->_inside->_date.toString("YYYYMMdd").toStdString() << "_";
+
+    return ss.str();
   }
 
   void Entry::setBelongsTo(std::__cxx11::string journalName)
@@ -230,7 +238,7 @@ namespace diaryengine {
   {
     target << "From: \"" << this->author() << "\" <author@domain.com>" << std::endl;
     target << "Date: " << this->date() << std::endl;
-    target << "Message-ID: <" << this->id() << "@" << this->_inside->_belongsTo << std::endl;
+    target << "Message-ID: <" << this->id() << "@" << this->_inside->_belongsTo << ">" << std::endl;
     target << "Subject: " << this->title() << std::endl;
     target << "X-Engine-Version: " << DIARYENGINE_VERSION << std::endl;
     target << "X-Entry-Keywords: " << this->_inside->joinedKeywords() << std::endl;
@@ -239,8 +247,8 @@ namespace diaryengine {
     target << std::endl;
 
     target << this->_inside->boundaryLine();
-    target << "Content-Type: text/plain; charset=\"UTF-8\"" << std::endl;
-    target << this->textContent() << std::endl;
+    target << "Content-Type: text/plain; charset=\"UTF-8\"" << std::endl << std::endl;
+    target << this->textContent() << std::endl << std::endl;
 
     for(auto multimedia : this->base64EncodedMultimediaParts())
     {

@@ -14,7 +14,7 @@ CC            = gcc
 CXX           = g++
 DEFINES       = -DDIARYENGINE_VERSION=\"0.1\" -DQT_NO_DEBUG -DQT_GUI_LIB -DQT_CORE_LIB
 CFLAGS        = -pipe -O2 -march=x86-64 -mtune=generic -O2 -pipe -fstack-protector-strong -Wall -W -D_REENTRANT -fPIC $(DEFINES)
-CXXFLAGS      = -pipe -std=c++11 -ftime-report -O2 -march=x86-64 -mtune=generic -O2 -pipe -fstack-protector-strong -Wall -W -D_REENTRANT -fPIC $(DEFINES)
+CXXFLAGS      = -pipe -std=c++11 -O2 -march=x86-64 -mtune=generic -O2 -pipe -fstack-protector-strong -Wall -W -D_REENTRANT -fPIC $(DEFINES)
 INCPATH       = -I. -I../src -isystem /usr/include/qt -isystem /usr/include/qt/QtGui -isystem /usr/include/qt/QtCore -I. -I/usr/lib/qt/mkspecs/linux-g++
 QMAKE         = /usr/lib/qt/bin/qmake
 DEL_FILE      = rm -f
@@ -188,7 +188,8 @@ DIST          = /usr/lib/qt/mkspecs/features/spec_pre.prf \
 		/usr/lib/qt/mkspecs/features/yacc.prf \
 		/usr/lib/qt/mkspecs/features/lex.prf \
 		test.pro entrytestsuite.h \
-		booktestsuite.h 
+		booktestsuite.h \
+		managertestsuite.h 
 QMAKE_TARGET  = test
 DESTDIR       = 
 TARGET        = test
@@ -495,8 +496,8 @@ dist: distdir FORCE
 distdir: FORCE
 	@test -d $(DISTDIR) || mkdir -p $(DISTDIR)
 	$(COPY_FILE) --parents $(DIST) $(DISTDIR)/
-	$(COPY_FILE) --parents entrytestsuite.h booktestsuite.h $(DISTDIR)/
-	$(COPY_FILE) --parents entrytestsuite.h booktestsuite.h $(DISTDIR)/
+	$(COPY_FILE) --parents entrytestsuite.h booktestsuite.h managertestsuite.h $(DISTDIR)/
+	$(COPY_FILE) --parents entrytestsuite.h booktestsuite.h managertestsuite.h $(DISTDIR)/
 
 
 clean: compiler_clean 
@@ -519,12 +520,14 @@ check: first
 
 compiler_generate_tests_make_all: runner.cc
 compiler_generate_tests_clean:
-	-$(DEL_FILE) runner.cc runner.cc
+	-$(DEL_FILE) runner.cc runner.cc runner.cc
 runner.cc: entrytestsuite.h \
-		booktestsuite.h ../src/entry.h \
+		booktestsuite.h \
+		managertestsuite.h ../src/entry.h \
 		../src/book.h \
-		../src/entry.h
-	cxxtestgen --root --xunit-printer -o runner.cc entrytestsuite.h booktestsuite.h
+		../src/entry.h \
+		../src/manager.h
+	cxxtestgen --root --xunit-printer -o runner.cc entrytestsuite.h booktestsuite.h managertestsuite.h
 
 compiler_rcc_make_all:
 compiler_rcc_clean:
