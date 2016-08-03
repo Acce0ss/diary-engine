@@ -6,6 +6,9 @@
 #include <fstream>
 #include <sstream>
 
+#include <QUuid>
+#include <QByteArray>
+
 #include "entry.h"
 
 namespace diaryengine {
@@ -15,14 +18,15 @@ namespace diaryengine {
       Implementation() :
         _name(""),
         _description(""),
-        _entries()
+        _entries(),
+        _id(0)
       {
-
       }
 
       std::string _name;
       std::string _description;
       std::map<unsigned long, std::shared_ptr<Entry>> _entries;
+      unsigned long _id;
 
       bool hasEntry(long id)
       {
@@ -37,6 +41,7 @@ namespace diaryengine {
 
     created->setName(name);
     created->setDescription(description);
+    created->regenerateId();
 
     return created;
   }
@@ -49,6 +54,19 @@ namespace diaryengine {
   Book::~Book()
   {
 
+  }
+
+  unsigned long Book::id()
+  {
+    return this->_inside->_id;
+  }
+
+  void Book::regenerateId()
+  {
+    unsigned long temp = 0;
+    memcpy(&temp, QUuid::createUuid().toRfc4122().left(8).data(), sizeof(unsigned long));
+
+    this->_inside->_id = temp;
   }
 
   void Book::setName(std::string name)

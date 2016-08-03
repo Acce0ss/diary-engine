@@ -19,6 +19,9 @@ namespace diaryengine {
       Book();
       ~Book();
 
+      unsigned long id();
+      void regenerateId();
+
       void setName(std::string name);
       std::string name();
 
