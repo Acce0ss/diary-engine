@@ -95,7 +95,7 @@ public:
       return testBook;
     }
 
-    const std::string testPath = "/tmp/files/";
+    const std::string testPath = "/tmp/diaryengine_test/";
     std::shared_ptr<diaryengine::Manager> testManager;
     std::shared_ptr<diaryengine::Book> testBook;
 };
