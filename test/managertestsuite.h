@@ -14,6 +14,7 @@ public:
     void setUp()
     {
       testManager = diaryengine::Manager::makeNew(testPath);
+      testBook = createTestBook();
     }
 
     void tearDown()
@@ -25,6 +26,39 @@ public:
     void testRootpathIsSetCorrectlyAfterConstructingObject(void)
     {
       TS_ASSERT(testManager->rootPath() == testPath)
+    }
+
+    void testAddingUniqueBookReturnsTrue()
+    {
+      TS_ASSERT_EQUALS(testManager->addBook(testBook), true);
+    }
+
+    void testAddingSameBookTwiceReturnsFalse()
+    {
+      testManager->addBook(testBook);
+      TS_ASSERT_EQUALS(testManager->addBook(testBook), false);
+    }
+
+    void testAfterAddingUniqueBookBooksReturnsSizeOneMap()
+    {
+      testManager->addBook(testBook);
+      TS_ASSERT_EQUALS(testManager->books().size(), 1);
+    }
+
+    void testAfterAddingTwoUniqueBookBooksReturnsSizeTwoMap()
+    {
+      auto book2 = createTestBook();
+
+      testManager->addBook(testBook);
+      testManager->addBook(book2);
+
+      TS_ASSERT_EQUALS(testManager->books().size(), 2);
+    }
+
+    void testAfterAddingBookHasCorrectIdInTheBooksMap()
+    {
+      testManager->addBook(testBook);
+      TS_ASSERT_EQUALS(testManager->books().at(testBook->id()), testBook);
     }
 
     std::shared_ptr<diaryengine::Entry> createTestEntry()
@@ -63,6 +97,7 @@ public:
 
     const std::string testPath = "/tmp/files/";
     std::shared_ptr<diaryengine::Manager> testManager;
+    std::shared_ptr<diaryengine::Book> testBook;
 };
 
 #endif // MANAGERTESTSUITE_H
