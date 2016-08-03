@@ -99,14 +99,15 @@ namespace diaryengine {
     }
   }
 
-  std::list<std::shared_ptr<Book> > Manager::books()
+  const std::map<unsigned long, std::shared_ptr<Book> >& Manager::books()
   {
     return this->_inside->_books;
   }
 
-  std::list<std::shared_ptr<Book> > Manager::searchBooksByName(std::string name)
+  std::list<std::shared_ptr<Book>> Manager::searchBooksByName(std::string name)
   {
-
+    //TODO: implement
+    return std::list<std::shared_ptr<Book>>();
   }
 
   bool Manager::saveAllBooksToDisk()
