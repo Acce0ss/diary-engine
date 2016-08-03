@@ -69,6 +69,15 @@ namespace diaryengine {
     this->_inside->_id = temp;
   }
 
+  std::string Book::representation()
+  {
+    std::stringstream ss;
+    ss << this->_inside->_id << "_"
+       << this->_inside->_name;
+
+    return ss.str();
+  }
+
   void Book::setName(std::string name)
   {
     this->_inside->_name = name;

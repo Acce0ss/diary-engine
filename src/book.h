@@ -22,6 +22,8 @@ namespace diaryengine {
       unsigned long id();
       void regenerateId();
 
+      std::string representation();
+
       void setName(std::string name);
       std::string name();
 

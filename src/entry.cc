@@ -118,6 +118,15 @@ namespace diaryengine {
     this->_inside->_id = temp;
   }
 
+  std::string Entry::representation()
+  {
+    std::stringstream ss;
+    ss << this->_inside->_id << "_"
+       << this->_inside->_date.toString("YYYYMMdd").toStdString() << "_";
+
+    return ss.str();
+  }
+
   void Entry::setBelongsTo(std::__cxx11::string journalName)
   {
     this->_inside->_belongsTo = journalName;
