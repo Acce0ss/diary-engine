@@ -71,7 +71,13 @@ make
 Testing
 -------
 
-The automated unit tests are made using the cxxtest-framework.
+NOTE: Tests currently only work on *nix systems, as it is assumed
+that /tmp/ exists and is writable. Most of the tests are unit tests,
+but some of them use file IO and so on, which should not be present
+in "proper" unit tests, but as a part of integration tests. Nevertheless,
+ I did not deem this necessary for this small project.
+
+The automated tests are made using the cxxtest-framework.
 To generate and compile the tests, you need to install it. Most
 Linux distributions have a package for it. More information at 
 http://cxxtest.com/.
